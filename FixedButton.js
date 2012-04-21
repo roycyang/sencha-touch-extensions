@@ -30,8 +30,17 @@ Ext.define('GT.FixedButton', {
 
         if (!this.getDisabled()) {
             this.isPressed = true;
-            // adding a pressedTarget flag
-            this.pressedTarget = e.target;
+
+            // adding a pressed flag
+            // clicked on the label or icon instead of the button
+            if(e.target.className.indexOf('x-button') == -1){
+                this.pressedTarget = e.target.parentElement;
+                console.log('button parent',this.pressedTarget);
+            }else{
+                this.pressedTarget = e.target;
+                console.log('button',this.pressedTarget);
+            }
+
 
             if (this.hasOwnProperty('releasedTimeout')) {
                 clearTimeout(this.releasedTimeout);
@@ -60,9 +69,16 @@ Ext.define('GT.FixedButton', {
           return;
         }
         
-        if(e.target != this.pressedTarget){
+        var currentPressedTarget;
+        // clicked on the label or icon instead of the button
+        if(e.target.className.indexOf('x-button') == -1){
+            currentPressedTarget = e.target.parentElement;
+        }else{
+            currentPressedTarget = e.target;
+        }
+        
+        if(currentPressedTarget != this.pressedTarget){
             this.element.removeCls(this.getPressedCls());
-            
         }else{
             this.element.addCls(this.getPressedCls());
             
@@ -76,6 +92,14 @@ Ext.define('GT.FixedButton', {
 
     // @private
     doRelease: function(me, e) {
+        var currentPressedTarget;
+        // clicked on the label or icon instead of the button
+        if(e.target.className.indexOf('x-button') == -1){
+            currentPressedTarget = e.target.parentElement;
+        }else{
+            currentPressedTarget = e.target;
+        }
+        
         if (!me.isPressed) {
             return;
         }
@@ -90,7 +114,7 @@ Ext.define('GT.FixedButton', {
         me.releasedTimeout = setTimeout(function() {
             if (me && me.element) {
                 me.element.removeCls(me.getPressedCls());
-                if(e.target == me.pressedTarget){
+                if(currentPressedTarget == me.pressedTarget){
                   console.log('me is', me);
                   console.log('e is', e);
                   me.fireAction('tap', [me, e], 'doTap');

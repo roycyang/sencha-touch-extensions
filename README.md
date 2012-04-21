@@ -1,10 +1,13 @@
 GT.FixedButton
 ==============
 
-This extends the Ext.Button in Sencha Touch 2.0 for a different, more iOS like user experience.  Currently, Ext.Button has the following rules:
+This extends the Ext.Button in Sencha Touch 2.0 for a different, more iOS like user experience.  As the name suggests this works well for buttons that are fixed and not in a scrollable container.  It might also work with buttons in a scrollable container but haven't tested yet.
+
 
 The Problem
 =============== 
+
+Currently, Ext.Button has the following rules:
 
 1.  The button fires on the tap event.  This is not optimal because the user needs to tap the button and release it exactly on the same pixel, or else the tap event doesn't fire.  There is a thread about using moveThrottle (http://www.sencha.com/forum/showthread.php?188573-buttons-often-don-t-fire-a-tap-event-when-pressed&highlight=movethrottle) to give the tap event a tolerance:
 
@@ -47,5 +50,8 @@ Ext.Loader.setPath({
 From there, you will have access to the fixed button by using:
 
 <pre>
+requires: ['GT.FixedButton']
+
+//...
 xtype: 'fixedbutton'
 </pre>
