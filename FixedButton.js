@@ -65,8 +65,6 @@ Ext.define('GT.FixedButton', {
             currentPressedTarget = e.target.id;
         }
         
-        console.log('onMove', currentPressedTarget);
-        
         if(currentPressedTarget != this.pressedTarget){
             this.element.removeCls(this.getPressedCls());
         }else{
@@ -89,7 +87,6 @@ Ext.define('GT.FixedButton', {
         }else{
             currentPressedTarget = e.target.id;
         }
-        console.log('doRelease', currentPressedTarget);
         
         if (!me.isPressed) {
             return;
@@ -104,12 +101,8 @@ Ext.define('GT.FixedButton', {
 
         me.releasedTimeout = setTimeout(function() {
             if (me && me.element) {
-                console.log('inside the releasedTimeout');
                 me.element.removeCls(me.getPressedCls());
-                console.log("currentPressedTarget", currentPressedTarget);
-                console.log('me.pressedTarget', me.pressedTarget);
                 if(currentPressedTarget == me.pressedTarget){
-                    console.log('firing?');
                   me.fireAction('tap', [me, e], 'doTap');
                 }
 
