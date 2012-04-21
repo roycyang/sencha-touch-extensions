@@ -19,45 +19,33 @@ Ext.define('GT.FixedButton', {
             touchstart : 'onPress',
             touchend   : 'onRelease',
             touchmove  : 'onMove',
+            tap        : 'onTap'
         });
     },
 
     // @private
     onPress: function(e) {
         var element = this.element,
-            pressedDelay = this.getPressedDelay(),
             pressedCls = this.getPressedCls();
 
         if (!this.getDisabled()) {
             this.isPressed = true;
-
+            // console.log('e.target', e);
             // adding a pressed flag
             // clicked on the label or icon instead of the button
             if(e.target.className.indexOf('x-button') == -1){
-                this.pressedTarget = e.target.parentElement;
-                console.log('button parent',this.pressedTarget);
+                this.pressedTarget = e.target.parentElement.id;
             }else{
-                this.pressedTarget = e.target;
-                console.log('button',this.pressedTarget);
+                this.pressedTarget = e.target.id;
             }
-
 
             if (this.hasOwnProperty('releasedTimeout')) {
                 clearTimeout(this.releasedTimeout);
                 delete this.releasedTimeout;
             }
 
-            if (pressedDelay > 0) {
-                this.pressedTimeout = setTimeout(function() {
-                    if (element) {
-                        element.addCls(pressedCls);
-                    }
-                }, pressedDelay);
-            }
-            else {
-                element.addCls(pressedCls);
-            }
-
+            element.addCls(pressedCls);
+            
         }
     },
 
@@ -72,10 +60,12 @@ Ext.define('GT.FixedButton', {
         var currentPressedTarget;
         // clicked on the label or icon instead of the button
         if(e.target.className.indexOf('x-button') == -1){
-            currentPressedTarget = e.target.parentElement;
+            currentPressedTarget = e.target.parentElement.id;
         }else{
-            currentPressedTarget = e.target;
+            currentPressedTarget = e.target.id;
         }
+        
+        console.log('onMove', currentPressedTarget);
         
         if(currentPressedTarget != this.pressedTarget){
             this.element.removeCls(this.getPressedCls());
@@ -95,10 +85,11 @@ Ext.define('GT.FixedButton', {
         var currentPressedTarget;
         // clicked on the label or icon instead of the button
         if(e.target.className.indexOf('x-button') == -1){
-            currentPressedTarget = e.target.parentElement;
+            currentPressedTarget = e.target.parentElement.id;
         }else{
-            currentPressedTarget = e.target;
+            currentPressedTarget = e.target.id;
         }
+        console.log('doRelease', currentPressedTarget);
         
         if (!me.isPressed) {
             return;
@@ -113,10 +104,12 @@ Ext.define('GT.FixedButton', {
 
         me.releasedTimeout = setTimeout(function() {
             if (me && me.element) {
+                console.log('inside the releasedTimeout');
                 me.element.removeCls(me.getPressedCls());
+                console.log("currentPressedTarget", currentPressedTarget);
+                console.log('me.pressedTarget', me.pressedTarget);
                 if(currentPressedTarget == me.pressedTarget){
-                  console.log('me is', me);
-                  console.log('e is', e);
+                    console.log('firing?');
                   me.fireAction('tap', [me, e], 'doTap');
                 }
 
@@ -125,6 +118,14 @@ Ext.define('GT.FixedButton', {
             // remove the pressedTarget flag
             me.pressedTarget = null;
         }, 10);
-    }
+    },
+    
+    // @private
+    // disable the existing onTap function from Ext.Button
+    onTap: function(e) {
+        return false;
+    },
+    
+
 
 });
