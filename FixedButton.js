@@ -1,3 +1,11 @@
+// 
+//  FixedButton.js
+//  GT.FixedButton
+//   
+//  Created by Roy Yang on 2012-04-21.
+//  Extended from Sencha Ext.Button
+//  For latest and greatest, go to https://github.com/roycyang/Sencha-Touch-Extensions
+
 Ext.define('GT.FixedButton', {
     extend: 'Ext.Button',
     xtype: 'fixedbutton',
@@ -93,9 +101,6 @@ Ext.define('GT.FixedButton', {
             // remove the pressedTarget flag
             me.pressedTarget = null;
         }, 10);
-    },
-
-
-
+    }
 
 });
