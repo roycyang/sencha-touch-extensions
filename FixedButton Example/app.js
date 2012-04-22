@@ -1,6 +1,6 @@
 //<debug>
 Ext.Loader.setPath({
-    'GT': '../'
+    'GT': './'
 });
 //</debug>
 
@@ -35,10 +35,10 @@ Ext.application({
             items: [
                 {
                     padding: 20,
-                    html: 'Most recent code is at <a href="https://github.com/roycyang/sencha-touch-extensions">https://github.com/roycyang/sencha-touch-extensions</a>'
+                    html: 'Most recent code is at <a href="https://github.com/roycyang/sencha-touch-extensions">https://github.com/roycyang/sencha-touch-extensions</a>.  If you tap on the Sencha touch button, notice that you need to press and release at the same pixel to activate the button.  The press state is also not tied to touchmove.  If you press the button and drag your finger off the button, it is still depressed.  For GT.FixedButton, both the press state and the activate event are tied to the touchmove and touchend.'
                 },
                 {
-                    margin: 100,
+                    margin: '20px 50px',
                     xtype: 'button',
                     text: 'Default Sencha Button',
                     listeners: {
@@ -48,7 +48,7 @@ Ext.application({
                       }
                 },
                 {
-                    margin: 100,
+                    margin: '20px 50px',
                     xtype: 'fixedbutton',
                     text: 'GT.FixedButton Button',
                     listeners: {
