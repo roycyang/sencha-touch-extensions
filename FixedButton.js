@@ -17,8 +17,8 @@ Ext.define('GT.FixedButton', {
         this.element.on({
             scope      : this,
             touchstart : 'onPress',
-            touchend   : 'onRelease',
-            touchmove  : 'onMove',
+            dragend   : 'onRelease',
+            drag  : 'onMove',
             tap        : 'onTap'
         });
     },
@@ -53,22 +53,26 @@ Ext.define('GT.FixedButton', {
 
     // @private
     // when user moves, test to see if touch even is still the target
-    onMove: function(e) {
-        // window.onmove = e;
+    onMove: function(e, element) {
         if (!this.isPressed) {
           return;
         }
         
         var currentPressedTarget;
+        var elem = Ext.get(element);
+        
+        if(Ext.getCmp('debugconsole')){
+            Ext.getCmp('debugconsole').setHtml(Ext.getCmp('debugconsole').getHtml() + '<br/>touchmove target id: ' + element.id);
+            Ext.getCmp('debugconsole').getScrollable().getScroller().scrollToEnd();
+        }   
+                   
         // clicked on the label or icon instead of the button
-        if(!e.target.children.length){
-            currentPressedTarget = e.target.parentElement.id;
-        }else{
-            currentPressedTarget = e.target.id;
+        if(elem.parent('.x-button')){
+            currentPressedTarget = elem.parent('.x-button').id;
+        }else if(elem.hasCls('x-button')){
+            currentPressedTarget = elem.id;
         }
         
-        // console.log('onMove ' + currentPressedTarget);
-        // console.log('')
         if(currentPressedTarget != this.pressedTarget){
             this.element.removeCls(this.getPressedCls());
         }else{
@@ -78,18 +82,21 @@ Ext.define('GT.FixedButton', {
     },
     
     // @private
-    onRelease: function(e) {
-        this.fireAction('release', [this, e], 'doRelease');
+    onRelease: function(e, element) {
+        this.fireAction('release', [this, e, element], 'doRelease');
     },
 
     // @private
-    doRelease: function(me, e) {
+    doRelease: function(me, e, element) {
         var currentPressedTarget;
+        var elem = Ext.get(element);
+        
         // clicked on the label or icon instead of the button
-        if(!e.target.children.length){
-            currentPressedTarget = e.target.parentElement.id;
-        }else{
-            currentPressedTarget = e.target.id;
+        if(elem.parent('.x-button')){
+            console.log('inside!');
+            currentPressedTarget = elem.parent('.x-button').id;
+        }else if(elem.hasCls('x-button')){
+            currentPressedTarget = elem.id;
         }
         
         console.log('doRelease' + currentPressedTarget);
