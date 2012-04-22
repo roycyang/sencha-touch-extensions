@@ -48,7 +48,7 @@ Ext.application({
                     text: 'Default Sencha Button',
                     listeners: {
                           tap: function(){
-                              Ext.getCmp('console').setHtml(Ext.getCmp('console').getHtml() + '<br/>tapped default sencha button');
+                              Ext.getCmp('console').setHtml('tapped default sencha button');
                               Ext.getCmp('console').getScrollable().getScroller().scrollToEnd();
                           }
                       }
@@ -61,7 +61,8 @@ Ext.application({
                     text: 'GT.FixedButton Button',
                     listeners: {
                         tap: function(){
-                            Ext.getCmp('console').setHtml(Ext.getCmp('console').getHtml() + '<br/>tapped GT.FixedButton button');
+                            var html = Ext.getCmp('console').getHtml();
+                            Ext.getCmp('console').setHtml('tapped GT.FixedButton button');
                             Ext.getCmp('console').getScrollable().getScroller().scrollToEnd();
                         }
                     }
@@ -72,7 +73,7 @@ Ext.application({
                     style: {
                         margin: '10px',
                         padding: '20px',
-                        height: '200px',
+                        height: '80px',
                         color: '#fff',
                         background: '#666',
                         fontSize: '12px'
