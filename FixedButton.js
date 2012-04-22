@@ -32,12 +32,13 @@ Ext.define('GT.FixedButton', {
             this.isPressed = true;
             // console.log('e.target', e);
             // adding a pressed flag
-            // clicked on the label or icon instead of the button
-            if(e.target.className.indexOf('x-button') == -1){
+            if(!e.target.children.length){
                 this.pressedTarget = e.target.parentElement.id;
             }else{
                 this.pressedTarget = e.target.id;
             }
+            
+            // console.log('onPress ' + this.pressTarget);
 
             if (this.hasOwnProperty('releasedTimeout')) {
                 clearTimeout(this.releasedTimeout);
@@ -53,18 +54,21 @@ Ext.define('GT.FixedButton', {
     // @private
     // when user moves, test to see if touch even is still the target
     onMove: function(e) {
+        // window.onmove = e;
         if (!this.isPressed) {
           return;
         }
         
         var currentPressedTarget;
         // clicked on the label or icon instead of the button
-        if(e.target.className.indexOf('x-button') == -1){
+        if(!e.target.children.length){
             currentPressedTarget = e.target.parentElement.id;
         }else{
             currentPressedTarget = e.target.id;
         }
         
+        // console.log('onMove ' + currentPressedTarget);
+        // console.log('')
         if(currentPressedTarget != this.pressedTarget){
             this.element.removeCls(this.getPressedCls());
         }else{
@@ -82,11 +86,13 @@ Ext.define('GT.FixedButton', {
     doRelease: function(me, e) {
         var currentPressedTarget;
         // clicked on the label or icon instead of the button
-        if(e.target.className.indexOf('x-button') == -1){
+        if(!e.target.children.length){
             currentPressedTarget = e.target.parentElement.id;
         }else{
             currentPressedTarget = e.target.id;
         }
+        
+        console.log('doRelease' + currentPressedTarget);
         
         if (!me.isPressed) {
             return;
