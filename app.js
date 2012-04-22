@@ -34,28 +34,63 @@ Ext.application({
             // Add the two different buttons
             items: [
                 {
+                    style: {
+                        fontSize: '12px'
+                    },
                     padding: 20,
                     html: 'Most recent code is at <a href="https://github.com/roycyang/sencha-touch-extensions">https://github.com/roycyang/sencha-touch-extensions</a>.  If you tap on the Sencha touch button, notice that you need to press and release at the same pixel to activate the button.  The press state is also not tied to touchmove.  If you press the button and drag your finger off the button, it is still depressed.  For GT.FixedButton, both the press state and the activate event are tied to the touchmove and touchend.'
                 },
                 {
-                    margin: '20px 50px',
+
+                    margin: '10px 50px',
+                    height: 50,
                     xtype: 'button',
                     text: 'Default Sencha Button',
                     listeners: {
                           tap: function(){
-                              alert('You tapped on Default Sencha Button!');
+                              Ext.getCmp('console').setHtml(Ext.getCmp('console').getHtml() + '<br/>tapped default sencha button');
+                              Ext.getCmp('console').getScrollable().getScroller().scrollToEnd();
                           }
                       }
                 },
                 {
-                    margin: '20px 50px',
+                    margin: '10px 50px',
+                    height: 50,
+                    id: 'fixedButton',
                     xtype: 'fixedbutton',
                     text: 'GT.FixedButton Button',
                     listeners: {
                         tap: function(){
-                            alert('You tapped on GT.FixedButton Button!');
+                            Ext.getCmp('console').setHtml(Ext.getCmp('console').getHtml() + '<br/>tapped GT.FixedButton button');
+                            Ext.getCmp('console').getScrollable().getScroller().scrollToEnd();
                         }
                     }
+                },
+                {
+                    id: 'console',
+                    scrollable: true,
+                    style: {
+                        margin: '10px',
+                        padding: '20px',
+                        height: '200px',
+                        color: '#fff',
+                        background: '#666',
+                        fontSize: '12px'
+                    },
+                    html: "Console..."
+                },
+                {
+                    id: 'debugconsole',
+                    scrollable: true,
+                    style: {
+                        margin: '10px',
+                        padding: '20px',
+                        height: '200px',
+                        color: '#fff',
+                        background: '#666',
+                        fontSize: '12px'
+                    },
+                    html: "Debug Console..."
                 },
                 // Also add a toolbar
                 {
@@ -65,7 +100,8 @@ Ext.application({
                     docked: 'top',
                     title: 'Comparing Button UX'
                 }
-            ]
+            ],
+            
         });
     }
 });
