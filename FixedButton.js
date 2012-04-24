@@ -15,12 +15,6 @@ Ext.define('GT.FixedButton', {
          * Optional tap mask indicator.
          * @accessor
          */
-        tapMask: null,
-        tapMaskFactor: 2,
-        tapOverflowTop: 10,
-        tapOverflowBottom: 10,
-        tapOverflowLeft: 10,
-        tapOverflowRight: 10,
         
     }, 
     template: [

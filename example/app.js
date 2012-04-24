@@ -38,7 +38,7 @@ Ext.application({
                         fontSize: '12px'
                     },
                     padding: 20,
-                    html: 'Most recent code is at <a href="https://github.com/roycyang/sencha-touch-extensions">https://github.com/roycyang/sencha-touch-extensions</a>.  If you tap on the Sencha touch button, notice that you need to press and release at the same pixel to activate the button.  The press state is also not tied to touchmove.  If you press the button and drag your finger off the button, it is still depressed.  For GT.FixedButton, both the press state and the activate event are tied to the touchmove and touchend.'
+                    html: 'Most recent code is at <a href="https://github.com/roycyang/sencha-touch-extensions">https://github.com/roycyang/sencha-touch-extensions</a>.' //  If you tap on the Sencha touch button, notice that you need to press and release at the same pixel to activate the button.  The press state is also not tied to touchmove.  If you press the button and drag your finger off the button, it is still depressed.  For GT.FixedButton, both the press state and the activate event are tied to the touchmove and touchend.
                 },
                 {
 
