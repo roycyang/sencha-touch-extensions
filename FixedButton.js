@@ -8,9 +8,6 @@
 
 Ext.define('GT.FixedButton', {
     extend: 'Ext.Button',
-<<<<<<< HEAD
-    xtype: 'fixedbutton',
-=======
     xtype: 'fixedbutton',  
     config: {
         /**
@@ -61,13 +58,10 @@ Ext.define('GT.FixedButton', {
     updateTapMask: function(tapMask) {
         console.log('in it!');
     },
->>>>>>> master
 
     // removed the tap event and rolling our own logic
     initialize: function() {
         this.callParent();
-<<<<<<< HEAD
-=======
         
         this.element.setStyle('overflow', 'visible');
         
@@ -80,18 +74,10 @@ Ext.define('GT.FixedButton', {
         }
         
         this.setMaskSize(1, true);
->>>>>>> master
 
         this.element.on({
             scope      : this,
             touchstart : 'onPress',
-<<<<<<< HEAD
-            touchend   : 'onRelease',
-            touchmove  : 'onMove',
-            tap        : 'onTap'
-        });
-    },
-=======
             dragend    : 'onRelease',
             drag       : 'onMove',
             tap        : 'onTap'
@@ -121,18 +107,11 @@ Ext.define('GT.FixedButton', {
             });
         }
     },
->>>>>>> master
 
     // @private
     onPress: function(e) {
         var element = this.element,
             pressedCls = this.getPressedCls();
-<<<<<<< HEAD
-
-        if (!this.getDisabled()) {
-            this.isPressed = true;
-            // console.log('e.target', e);
-=======
             
 
 
@@ -142,7 +121,6 @@ Ext.define('GT.FixedButton', {
             // makes the mask bigger
             this.setMaskSize();
             
->>>>>>> master
             // adding a pressed flag
             if(!e.target.children.length){
                 this.pressedTarget = e.target.parentElement.id;
@@ -150,11 +128,7 @@ Ext.define('GT.FixedButton', {
                 this.pressedTarget = e.target.id;
             }
             
-<<<<<<< HEAD
-            // console.log('onPress ' + this.pressTarget);
-=======
             console.log('onPress ' + this.pressedTarget);
->>>>>>> master
 
             if (this.hasOwnProperty('releasedTimeout')) {
                 clearTimeout(this.releasedTimeout);
@@ -170,28 +144,18 @@ Ext.define('GT.FixedButton', {
     // @private
     // when user moves, test to see if touch even is still the target
     onMove: function(e, element) {
-<<<<<<< HEAD
-=======
         console.log('e', e);
->>>>>>> master
         if (!this.isPressed) {
           return;
         }
         
-<<<<<<< HEAD
-=======
 
         
->>>>>>> master
         var currentPressedTarget;
         var elem = Ext.get(element);
         
         if(Ext.getCmp('debugconsole')){
-<<<<<<< HEAD
-            Ext.getCmp('debugconsole').setHtml(Ext.getCmp('debugconsole').getHtml() + '<br/>touchmove target: ' + element.id);
-=======
             Ext.getCmp('debugconsole').setHtml(Ext.getCmp('debugconsole').getHtml() + '<br/>touchmove target id: ' + element.id);
->>>>>>> master
             Ext.getCmp('debugconsole').getScrollable().getScroller().scrollToEnd();
         }   
                    
@@ -204,10 +168,6 @@ Ext.define('GT.FixedButton', {
         
         if(currentPressedTarget != this.pressedTarget){
             this.element.removeCls(this.getPressedCls());
-<<<<<<< HEAD
-        }else{
-            this.element.addCls(this.getPressedCls());
-=======
             if(this.getTapMask()){
                 this.tapMask.setStyle({
                     'background': 'red'
@@ -220,7 +180,6 @@ Ext.define('GT.FixedButton', {
                     'background': 'green'
                 });
             }
->>>>>>> master
             
         }
     },
@@ -232,12 +191,9 @@ Ext.define('GT.FixedButton', {
 
     // @private
     doRelease: function(me, e, element) {
-<<<<<<< HEAD
-=======
         // resets mask
         this.setMaskSize(1, true);
         
->>>>>>> master
         var currentPressedTarget;
         var elem = Ext.get(element);
         
