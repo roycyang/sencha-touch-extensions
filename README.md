@@ -15,7 +15,6 @@ The Problem
 Currently, Ext.Button has the following rules:
 
 1.  The button fires on the tap event.  This is not optimal because the user needs to tap the button and release it exactly on the same pixel, or else the tap event doesn't fire.  There is a thread about using moveThrottle (http://www.sencha.com/forum/showthread.php?188573-buttons-often-don-t-fire-a-tap-event-when-pressed&highlight=movethrottle) to give the tap event a tolerance:
-
 <pre>
 	Ext.application({
 	    eventPublishers: {
@@ -26,7 +25,6 @@ Currently, Ext.Button has the following rules:
 	    // ...
 	});
 </pre>
-
 But this code messes with the other touch events, making the carousel and all scrolling look choppy.  Even if that choppiness was acceptable, a 3px or 5px tolerance still isn't good enough.  Some users are "sloppy" tappers.
 
 2.  When you touch a button, the press state is added.  Only when you let go (touchend), does the press state disappear.  Even if you touch the button and drag your finger off, the press state remains.  There is a fundamental flaw in the logic in that when the user sees the "press state" activated, they would expect the button to be "tapped" when they let go.
