@@ -43,43 +43,52 @@ Ext.application({
                 {
 
                     margin: '10px 50px',
-                    height: 50,
+                    style: {
+                        fontSize: '12px'
+                    },
+                    width: 120,
                     xtype: 'button',
-                    text: 'Default Sencha Button',
+                    text: 'Ext.Button',
                     listeners: {
                           tap: function(){
-                              Ext.getCmp('console').setHtml('tapped default sencha button');
-                              Ext.getCmp('console').getScrollable().getScroller().scrollToEnd();
+                              // Ext.getCmp('console').setHtml('tapped default sencha button');
+                              // Ext.getCmp('console').getScrollable().getScroller().scrollToEnd();
+                              Ext.Msg.alert('Tapped', 'tapped default sencha button');
                           }
                       }
                 },
                 {
                     margin: '10px 50px',
-                    height: 50,
                     id: 'fixedButton',
+                    style: {
+                        fontSize: '12px'
+                    },
+                    width: 120,
                     xtype: 'fixedbutton',
-                    text: 'GT.FixedButton Button',
+                    tapMask: true,
+                    text: 'GT.FixedButton',
                     listeners: {
                         tap: function(){
-                            var html = Ext.getCmp('console').getHtml();
-                            Ext.getCmp('console').setHtml('tapped GT.FixedButton button');
-                            Ext.getCmp('console').getScrollable().getScroller().scrollToEnd();
+                            //var html = Ext.getCmp('console').getHtml();
+                            // Ext.getCmp('console').setHtml('tapped GT.FixedButton button');
+                            //  Ext.getCmp('console').getScrollable().getScroller().scrollToEnd();
+                            Ext.Msg.alert('Tapped', 'tapped fixed button');
                         }
                     }
                 },
-                {
-                    id: 'console',
-                    scrollable: true,
-                    style: {
-                        margin: '10px',
-                        padding: '20px',
-                        height: '80px',
-                        color: '#fff',
-                        background: '#666',
-                        fontSize: '12px'
-                    },
-                    html: "Console..."
-                },
+                // {
+                //     id: 'console',
+                //     scrollable: true,
+                //     style: {
+                //         margin: '10px',
+                //         padding: '20px',
+                //         height: '80px',
+                //         color: '#fff',
+                //         background: '#666',
+                //         fontSize: '12px'
+                //     },
+                //     html: "Console..."
+                // },
                 {
                     id: 'debugconsole',
                     scrollable: true,
