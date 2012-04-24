@@ -42,39 +42,92 @@ Ext.application({
                 },
                 {
 
-                    margin: '10px 50px',
-                    style: {
-                        fontSize: '12px'
+                    xtype: 'container',
+                    layout: 'hbox',
+                    defaults: {
+                        style: {
+                            fontSize: '12px'
+                        }
                     },
-                    width: 120,
-                    xtype: 'button',
-                    text: 'Ext.Button',
-                    listeners: {
-                          tap: function(){
-                              // Ext.getCmp('console').setHtml('tapped default sencha button');
-                              // Ext.getCmp('console').getScrollable().getScroller().scrollToEnd();
-                              Ext.Msg.alert('Tapped', 'tapped default sencha button');
-                          }
-                      }
+                    items: [
+                        {
+                            margin: '20px 50px',
+                            width: 120,
+                            xtype: 'button',
+                            text: 'Ext.Button',
+                            listeners: {
+                                  tap: function(){
+                                      // Ext.getCmp('console').setHtml('tapped default sencha button');
+                                      // Ext.getCmp('console').getScrollable().getScroller().scrollToEnd();
+                                      Ext.Msg.alert('Tapped', 'tapped default sencha button');
+                                  }
+                              }
+                        },
+                        {
+                            margin: '17px 0 0 0',
+                            html: 'Must tap and release at exactly same pixel<br/>Dragging off button does not change state'
+                        }
+                    ]
+                    
                 },
                 {
-                    margin: '10px 50px',
-                    id: 'fixedButton',
-                    style: {
-                        fontSize: '12px'
-                    },
-                    width: 120,
-                    xtype: 'fixedbutton',
-                    tapMask: true,
-                    text: 'GT.FixedButton',
-                    listeners: {
-                        tap: function(){
-                            //var html = Ext.getCmp('console').getHtml();
-                            // Ext.getCmp('console').setHtml('tapped GT.FixedButton button');
-                            //  Ext.getCmp('console').getScrollable().getScroller().scrollToEnd();
-                            Ext.Msg.alert('Tapped', 'tapped fixed button');
+                    xtype: 'container',
+                    layout: 'hbox',
+                    defaults: {
+                        style: {
+                            fontSize: '12px'
                         }
-                    }
+                    },
+                    items: [
+                        {
+                            margin: '20px 50px',
+                            width: 120,
+                            xtype: 'fixedbutton',
+                            tapMask: true,
+                            text: 'GT.FixedButton',
+                            listeners: {
+                                tap: function(){
+                                    //var html = Ext.getCmp('console').getHtml();
+                                    // Ext.getCmp('console').setHtml('tapped GT.FixedButton button');
+                                    //  Ext.getCmp('console').getScrollable().getScroller().scrollToEnd();
+                                    Ext.Msg.alert('Tapped', 'tapped fixed button');
+                                }
+                            }
+                        },
+                        {
+                            margin: '10px 0 0 0',
+                            html: 'Orange = tap mask<br/>Green = activated tap mask<br/>Red = inactive tap mask'
+                        }
+                    ]
+                },
+                {
+                    xtype: 'container',
+                    layout: 'hbox',
+                    defaults: {
+                        style: {
+                            fontSize: '12px'
+                        }
+                    },
+                    items: [
+                        {
+                            margin: '20px 50px',
+                            width: 120,
+                            xtype: 'fixedbutton',
+                            text: 'GT.FixedButton',
+                            listeners: {
+                                tap: function(){
+                                    //var html = Ext.getCmp('console').getHtml();
+                                    // Ext.getCmp('console').setHtml('tapped GT.FixedButton button');
+                                    //  Ext.getCmp('console').getScrollable().getScroller().scrollToEnd();
+                                    Ext.Msg.alert('Tapped', 'tapped fixed button');
+                                }
+                            }
+                        },
+                        {
+                            margin: '22px 0 0 0',
+                            html: 'Same as above but no mask highlighting'
+                        }
+                    ]
                 },
                 // {
                 //     id: 'console',

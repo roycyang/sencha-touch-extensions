@@ -19,8 +19,8 @@ Ext.define('GT.FixedButton', {
         tapMaskFactor: 2,
         tapOverflowTop: 10,
         tapOverflowBottom: 10,
-        tapOverflowLeft: 20,
-        tapOverflowRight: 20,
+        tapOverflowLeft: 10,
+        tapOverflowRight: 10,
         
     }, 
     template: [
@@ -73,7 +73,7 @@ Ext.define('GT.FixedButton', {
             });
         }
         
-        this.setMaskSize(1);
+        this.setMaskSize(1, true);
 
         this.element.on({
             scope      : this,
@@ -85,7 +85,7 @@ Ext.define('GT.FixedButton', {
     },
     
     // @private
-    setMaskSize: function(factor){
+    setMaskSize: function(factor, reset){
         var parsedFactor = factor || this.getTapMaskFactor();
         
         this.tapMask.setStyle({
@@ -95,7 +95,17 @@ Ext.define('GT.FixedButton', {
             paddingLeft: this.getTapOverflowLeft() * parsedFactor + 'px',
             top: '-' + this.getTapOverflowTop() * parsedFactor + 'px',
             left: '-' + this.getTapOverflowLeft() * parsedFactor + 'px'
-        })
+        });
+        
+        if(this.getTapMask() && reset){
+            this.tapMask.setStyle({
+                'background': 'orange'
+            });
+        } else if(this.getTapMask()){
+            this.tapMask.setStyle({
+                'background': 'green'
+            });
+        }
     },
 
     // @private
@@ -158,8 +168,18 @@ Ext.define('GT.FixedButton', {
         
         if(currentPressedTarget != this.pressedTarget){
             this.element.removeCls(this.getPressedCls());
+            if(this.getTapMask()){
+                this.tapMask.setStyle({
+                    'background': 'red'
+                });
+            }
         }else{
             this.element.addCls(this.getPressedCls());
+            if(this.getTapMask()){
+                this.tapMask.setStyle({
+                    'background': 'green'
+                });
+            }
             
         }
     },
@@ -172,7 +192,7 @@ Ext.define('GT.FixedButton', {
     // @private
     doRelease: function(me, e, element) {
         // resets mask
-        this.setMaskSize(1);
+        this.setMaskSize(1, true);
         
         var currentPressedTarget;
         var elem = Ext.get(element);
