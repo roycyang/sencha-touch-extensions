@@ -142,19 +142,19 @@ Ext.application({
                 //     },
                 //     html: "Console..."
                 // },
-                {
-                    id: 'debugconsole',
-                    scrollable: true,
-                    style: {
-                        margin: '10px',
-                        padding: '20px',
-                        height: '200px',
-                        color: '#fff',
-                        background: '#666',
-                        fontSize: '12px'
-                    },
-                    html: "Debug Console..."
-                },
+                // {
+                //      id: 'debugconsole',
+                //      scrollable: true,
+                //      style: {
+                //          margin: '10px',
+                //          padding: '20px',
+                //          height: '200px',
+                //          color: '#fff',
+                //          background: '#666',
+                //          fontSize: '12px'
+                //      },
+                //      html: "Debug Console..."
+                //  },
                 // Also add a toolbar
                 {
                     xtype: 'toolbar',
