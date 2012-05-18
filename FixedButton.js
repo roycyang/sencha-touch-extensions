@@ -67,8 +67,10 @@ Ext.define('GT.FixedButton', {
         this.callParent();
         this.element.setStyle('overflow', 'visible');
         
+        this.setMaskSize(1);
+        
         if(this.getTapMask()){
-            this.setMaskSize(1, true);
+            this.setMaskColor(true);
         }
 
         this.element.on({
@@ -81,7 +83,7 @@ Ext.define('GT.FixedButton', {
     },
     
     // @private
-    setMaskSize: function(factor, reset){
+    setMaskSize: function(factor){
         var parsedFactor = factor || this.getTapMaskFactor();
         
         // change tapMask size
@@ -93,7 +95,10 @@ Ext.define('GT.FixedButton', {
             top: '-' + this.getTapOverflowTop() * parsedFactor + 'px',
             left: '-' + this.getTapOverflowLeft() * parsedFactor + 'px'
         });
+    },
     
+    // @private
+    setMaskColor: function(reset){    
         // change tapMask color
         if(reset){
             this.tapMask.setStyle({
@@ -116,9 +121,11 @@ Ext.define('GT.FixedButton', {
         if (!this.getDisabled()) {
             this.isPressed = true;
             
+            this.setMaskSize();
+            
             if(this.getTapMask()){
                 // makes the mask bigger
-                this.setMaskSize();
+                this.setMaskColor();
             }
             
             //adding a pressed flag
@@ -184,9 +191,11 @@ Ext.define('GT.FixedButton', {
     // @private
     doRelease: function(me, e, element) {
 
+        this.setMaskSize(1);
+        
         if(this.getTapMask()){
             // resets mask
-            this.setMaskSize(1, true);
+            this.setMaskSize(true);
         }
         
         if (!me.isPressed) {
