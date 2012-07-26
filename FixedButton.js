@@ -56,7 +56,9 @@ Ext.define('GT.FixedButton', {
      * @private
      */
     updateTapMask: function(tapMask) {
-        console.log('in it!');
+        //<debug>
+        //console.log('in it!');
+        //</debug>
     },
 
     /**
@@ -64,17 +66,19 @@ Ext.define('GT.FixedButton', {
      * removed the tap event and rolling our own logic
      */
     initialize: function() {
-        this.callParent();
-        this.element.setStyle('overflow', 'visible');
+    	var me = this;
+    	
+        me.callParent();
+        me.element.setStyle('overflow', 'visible');
         
-        this.setMaskSize(1);
+        me.setMaskSize(1);
         
-        if(this.getTapMask()){
-            this.setMaskColor(true);
+        if(me.getTapMask()){
+            me.setMaskColor(true);
         }
 
-        this.element.on({
-            scope      : this,
+        me.element.on({
+            scope      : me,
             touchstart : 'onPress',
             dragend    : 'onRelease',
             drag       : 'onMove',
@@ -84,16 +88,17 @@ Ext.define('GT.FixedButton', {
     
     // @private
     setMaskSize: function(factor){
-        var parsedFactor = factor || this.getTapMaskFactor();
+    	var me = this,
+    		parsedFactor = factor || me.getTapMaskFactor();
         
         // change tapMask size
-        this.tapMask.setStyle({
-            paddingTop: this.getTapOverflowTop() * parsedFactor + 'px',
-            paddingRight: this.getTapOverflowRight() * parsedFactor + 'px',
-            paddingBottom: this.getTapOverflowBottom() * parsedFactor + 'px',
-            paddingLeft: this.getTapOverflowLeft() * parsedFactor + 'px',
-            top: '-' + this.getTapOverflowTop() * parsedFactor + 'px',
-            left: '-' + this.getTapOverflowLeft() * parsedFactor + 'px'
+        me.tapMask.setStyle({
+            paddingTop: me.getTapOverflowTop() * parsedFactor + 'px',
+            paddingRight: me.getTapOverflowRight() * parsedFactor + 'px',
+            paddingBottom: me.getTapOverflowBottom() * parsedFactor + 'px',
+            paddingLeft: me.getTapOverflowLeft() * parsedFactor + 'px',
+            top: '-' + me.getTapOverflowTop() * parsedFactor + 'px',
+            left: '-' + me.getTapOverflowLeft() * parsedFactor + 'px'
         });
     },
     
@@ -115,35 +120,38 @@ Ext.define('GT.FixedButton', {
 
     // @private
     onPress: function(e) {
-        var element = this.element,
-            pressedCls = this.getPressedCls();
+        var me = this,
+        	element = me.element,
+            pressedCls = me.getPressedCls();
             
-        if (!this.getDisabled()) {
-            this.isPressed = true;
+        if (!me.getDisabled()) {
+            me.isPressed = true;
             
-            this.setMaskSize();
+            me.setMaskSize();
             
-            if(this.getTapMask()){
+            if(me.getTapMask()){
                 // makes the mask bigger
-                this.setMaskColor();
+                me.setMaskColor();
             }
             
             //adding a pressed flag
             if(!e.target.children.length){
-                this.pressedTarget = e.target.parentElement.id;
+                me.pressedTarget = e.target.parentElement.id;
             }else{
-                this.pressedTarget = e.target.id;
+                me.pressedTarget = e.target.id;
             }
             
             // until the Sencha touch target bug gets fixed, we are using actual x/y coordinates
-            this.pressedTargetLeft = Ext.getCmp(this.pressedTarget).element.getX() - (this.getTapOverflowLeft() * this.getTapMaskFactor());
-            this.pressedTargetWidth = Ext.getCmp(this.pressedTarget).element.getWidth() + (this.getTapOverflowLeft() * this.getTapMaskFactor()) + (this.getTapOverflowRight() * this.getTapMaskFactor());
-            this.pressedTargetTop = Ext.getCmp(this.pressedTarget).element.getY() - (this.getTapOverflowTop() * this.getTapMaskFactor());
-            this.pressedTargetHeight = Ext.getCmp(this.pressedTarget).element.getHeight() + (this.getTapOverflowTop() * this.getTapMaskFactor()) + (this.getTapOverflowBottom() * this.getTapMaskFactor())
+            var target = Ext.getCmp(me.pressedTarget),
+            	tapMaskFactor = me.getTapMaskFactor();
+            me.pressedTargetLeft = target.element.getX() - (me.getTapOverflowLeft() * tapMaskFactor);
+            me.pressedTargetWidth = target.element.getWidth() + (me.getTapOverflowLeft() * tapMaskFactor) + (me.getTapOverflowRight() * tapMaskFactor);
+            me.pressedTargetTop = target.element.getY() - (me.getTapOverflowTop() * me.getTapMaskFactor());
+            me.pressedTargetHeight = target.element.getHeight() + (me.getTapOverflowTop() * tapMaskFactor) + (me.getTapOverflowBottom() * tapMaskFactor)
             
-            if (this.hasOwnProperty('releasedTimeout')) {
-                clearTimeout(this.releasedTimeout);
-                delete this.releasedTimeout;
+            if (me.hasOwnProperty('releasedTimeout')) {
+                clearTimeout(me.releasedTimeout);
+                delete me.releasedTimeout;
             }
 
             element.addCls(pressedCls);
@@ -154,7 +162,9 @@ Ext.define('GT.FixedButton', {
     // @private
     // when user moves, test to see if touch even is still the target
     onMove: function(e, element) {
-        if (!this.isPressed) {
+        var me = this;
+        
+        if (!me.isPressed) {
           return;
         }
                                    
@@ -162,21 +172,21 @@ Ext.define('GT.FixedButton', {
         // this tests to see if the touch is over the tapmask or not to show the tapzone in green
         // or red
         if(
-            e.pageX < this.pressedTargetLeft || 
-            e.pageX > (this.pressedTargetLeft + this.pressedTargetWidth) ||
-            e.pageY < this.pressedTargetTop || 
-            e.pageY > (this.pressedTargetTop + this.pressedTargetHeight)
+            e.pageX < me.pressedTargetLeft || 
+            e.pageX > (me.pressedTargetLeft + me.pressedTargetWidth) ||
+            e.pageY < me.pressedTargetTop || 
+            e.pageY > (me.pressedTargetTop + me.pressedTargetHeight)
         ){
-            this.element.removeCls(this.getPressedCls());
-            if(this.getTapMask()){
-                this.tapMask.setStyle({
+            me.element.removeCls(me.getPressedCls());
+            if(me.getTapMask()){
+                me.tapMask.setStyle({
                     'background': 'red'
                 });
             }
         }else{
-            this.element.addCls(this.getPressedCls());
-            if(this.getTapMask()){
-                this.tapMask.setStyle({
+            me.element.addCls(me.getPressedCls());
+            if(me.getTapMask()){
+                me.tapMask.setStyle({
                     'background': 'green'
                 });
             }
@@ -191,11 +201,11 @@ Ext.define('GT.FixedButton', {
     // @private
     doRelease: function(me, e, element) {
 
-        this.setMaskSize(1);
+        me.setMaskSize(1);
         
-        if(this.getTapMask()){
+        if(me.getTapMask()){
             // resets mask
-            this.setMaskSize(true);
+            me.setMaskSize(true);
         }
         
         if (!me.isPressed) {
