@@ -80,6 +80,7 @@ Ext.define('GT.FixedButton', {
         me.element.on({
             scope      : me,
             touchstart : 'onPress',
+            touchend   : 'onTouchEnd',
             dragend    : 'onRelease',
             drag       : 'onMove',
             tap        : 'onTap'
@@ -158,6 +159,11 @@ Ext.define('GT.FixedButton', {
         }
     },
 
+    // @private
+    // Ext.Button has bound #onRelease to touchend, we need to stop that or it gets called twice
+    onTouchEnd: function(e) {
+        e.stopEvent();
+    },
 
     // @private
     // when user moves, test to see if touch even is still the target
